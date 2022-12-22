@@ -1,0 +1,28 @@
+{
+  "pluginAlias": "DLight",
+  "pluginType": "accessory",
+  "singular": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "required": true
+      },
+      "device_id": {
+        "type": "string",
+        "required": true
+      },
+      "device_ip": {
+        "type": "string",
+        "required": false,
+        "description": "IP address of the device (leave empty to auto-discover using mDNS)"
+      }
+    }
+  },
+  "layout": [
+    { "key": "name", "title": "Name"},
+    { "key": "device_id", "title": "Device ID", "placeholder": "device id" },
+    { "key": "device_ip", "title": "Device IP", "placeholder": "ip address" }
+  ]
+}
