@@ -44,6 +44,7 @@ interface DeviceState {
 export default class DLight implements AccessoryPlugin {
   private readonly lightbulbService: Service;
   private readonly deviceId: string;
+  private readonly deviceIp: string;
   private readonly logger: Logging;
 
   private readonly onCharacteristic: Characteristic;
@@ -60,6 +61,7 @@ export default class DLight implements AccessoryPlugin {
   };
 
   constructor(log: Logging, config: AccessoryConfig, api: API) {
+    this.deviceIp = config.device_ip;
     this.deviceId = config.device_id;
     this.logger = log;
 
@@ -116,7 +118,11 @@ export default class DLight implements AccessoryPlugin {
 
   async initialize() {
     this.logger.info("Initializing DLight.");
-    this.ip = await this.getIp();
+    if (this.deviceIp) {
+      this.ip = this.deviceIp;
+    } else {
+      this.ip = await this.getIp();
+    }
     this.ready = true;
     this.logger.info("Finished initializing DLight.");
   }
