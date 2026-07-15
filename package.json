@@ -16,7 +16,7 @@
   },
 "bugs": {
   "url": "https://github.com/jcaiazzo/homebridge-dlight/issues"
-  }  
+  },
   "scripts": {
     "lint": "eslint src/**/*.ts --max-warnings=0",
     "watch": "npm run build && npm link && nodemon",
