@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/node/integration/index.ts"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAAA;AAMA,gCAAc,2CANd;AAOA,gCAAc,iCAPd;AAQA,gCAAc,6BARd;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

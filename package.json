@@ -1,16 +1,24 @@
 {
-  "private": true,
+  "private": false,
   "displayName": "Homebridge DLight",
   "name": "homebridge-dlight",
   "version": "1.0.0",
   "license": "CONFIDENTIAL",
+  "type": "module",
   "engines": {
-    "node": ">=14.18.1",
-    "homebridge": ">=1.3.5"
+    "node": ">=22.0.0",
+    "homebridge": "^2.0.0"
   },
   "main": "dist/index.js",
+  "repository": {
+  "type": "git",
+  "url": "git+https://github.com/jcaiazzo/homebridge-dlight.git"
+  },
+"bugs": {
+  "url": "https://github.com/jcaiazzo/homebridge-dlight/issues"
+  }  
   "scripts": {
-    "lint": "eslint src/**.ts --max-warnings=0",
+    "lint": "eslint src/**/*.ts --max-warnings=0",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./dist && tsc",
     "prepublishOnly": "npm run lint && npm run build"
@@ -22,14 +30,14 @@
     "multicast-dns": "^7.2.5"
   },
   "devDependencies": {
-    "@types/node": "^16.10.9",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^8.0.1",
-    "homebridge": "^1.3.5",
-    "nodemon": "^2.0.13",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.3.0",
-    "typescript": "^4.4.4"
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "homebridge": "^2.0.0",
+    "nodemon": "^3.0.0",
+    "rimraf": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
   }
 }

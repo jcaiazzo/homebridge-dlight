@@ -4,12 +4,11 @@ import {
   AccessoryConfig,
   API,
   Service,
-  CharacteristicEventTypes,
   Characteristic,
   CharacteristicValue,
 } from "homebridge";
 import * as Net from "net";
-const mdns = require("multicast-dns");
+import mdns from "multicast-dns";
 
 const DISCOVERY_TIMEOUT_MS = 10000;
 const NOT_READY_REASON = "Not ready.";
@@ -27,12 +26,6 @@ const HOMEBRIDGE_TEMP_DELTA = HOMEBRIDGE_MAX_TEMP - HOMEBRIDGE_MIN_TEMP;
 enum CommandType {
   EXECUTE = "EXECUTE",
   QUERY_DEVICE_STATES = "QUERY_DEVICE_STATES",
-}
-
-enum DeviceStateField {
-  ON = "on",
-  BRIGHTNESS = "brightness",
-  COLOR_TEMPERATURE = "colorTemperature",
 }
 
 interface DeviceState {
@@ -79,36 +72,35 @@ export default class DLight implements AccessoryPlugin {
         api.hap.Characteristic.ColorTemperature
       );
 
-    this.registerGetter(this.onCharacteristic, DeviceStateField.ON);
-    this.registerSetter(
-      this.onCharacteristic,
-      this.setOn.bind(this),
-      DeviceStateField.ON
-    );
+    // On/Off
+    this.onCharacteristic.onGet(() => {
+      this.remoteGet()
+        .then((state) => this.onCharacteristic.updateValue(state.on))
+        .catch((err) => this.logger.error(`Unable to get ON state: ${err}`));
+      return this.deviceState.on;
+    });
+    this.onCharacteristic.onSet(this.setOn.bind(this));
 
-    this.registerGetter(
-      this.brightnessCharacteristic,
-      DeviceStateField.BRIGHTNESS
-    );
-    this.registerSetter(
-      this.brightnessCharacteristic,
-      this.setBrightness.bind(this),
-      DeviceStateField.BRIGHTNESS
-    );
+    // Brightness
+    this.brightnessCharacteristic.onGet(() => {
+      this.remoteGet()
+        .then((state) => this.brightnessCharacteristic.updateValue(state.brightness))
+        .catch((err) => this.logger.error(`Unable to get brightness: ${err}`));
+      return this.deviceState.brightness;
+    });
+    this.brightnessCharacteristic.onSet(this.setBrightness.bind(this));
 
-    this.registerGetter(
-      this.colorTemperatureCharacteristic,
-      DeviceStateField.COLOR_TEMPERATURE
-    );
-    this.registerSetter(
-      this.colorTemperatureCharacteristic,
-      this.setColorTemperature.bind(this),
-      DeviceStateField.COLOR_TEMPERATURE
-    );
+    // Color Temperature
+    this.colorTemperatureCharacteristic.onGet(() => {
+      this.remoteGet()
+        .then((state) => this.colorTemperatureCharacteristic.updateValue(state.colorTemperature))
+        .catch((err) => this.logger.error(`Unable to get color temperature: ${err}`));
+      return this.deviceState.colorTemperature;
+    });
+    this.colorTemperatureCharacteristic.onSet(this.setColorTemperature.bind(this));
 
     this.initialize().catch((error) => {
-      error = error || new Error("Failed to initialize.");
-      this.logger.error(error);
+      this.logger.error(`Failed to initialize: ${error?.message || error}`);
     });
   }
 
@@ -138,7 +130,7 @@ export default class DLight implements AccessoryPlugin {
 
       mdnsClient.on("response", (response) => {
         const answer = response.answers.find(
-          (answer) =>
+          (answer: any) =>
             answer.name === dnsName && answer.type === "A" && answer.data
         );
 
@@ -158,39 +150,6 @@ export default class DLight implements AccessoryPlugin {
           },
         ],
       });
-    });
-  }
-
-  private registerGetter(
-    characteristic: Characteristic,
-    fieldName: DeviceStateField
-  ) {
-    characteristic.on(CharacteristicEventTypes.GET, (cb) => {
-      this.remoteGet()
-        .then((deviceState) =>
-          characteristic.updateValue(deviceState[fieldName])
-        )
-        .catch((err) => {
-          err = err || new Error(`Unable to get: ${fieldName}`);
-          this.logger.error(err);
-        });
-      cb(undefined, this.deviceState[fieldName]);
-    });
-  }
-
-  private registerSetter(
-    characteristic: Characteristic,
-    setter: (value: CharacteristicValue) => Promise<void>,
-    fieldName: DeviceStateField
-  ) {
-    characteristic.on(CharacteristicEventTypes.SET, (value, cb) => {
-      setter(value)
-        .then(() => cb())
-        .catch((reason) => {
-          reason = reason || new Error(`Unable to set: ${fieldName}`);
-          this.logger.error(reason);
-          cb(reason);
-        });
     });
   }
 
@@ -245,22 +204,29 @@ export default class DLight implements AccessoryPlugin {
         );
       }, DISCOVERY_TIMEOUT_MS);
 
-      socket.on("error", reject);
+      socket.on("error", (err) => {
+        clearTimeout(timeout);
+        reject(err);
+      });
       socket.on("data", (buffer) => {
         clearTimeout(timeout);
         socket.end();
 
-        const response = JSON.parse(buffer.subarray(4).toString());
+        try {
+          const response = JSON.parse(buffer.subarray(4).toString());
 
-        if (response.status === SUCCESS_STATUS) {
-          resolve(response);
-        } else {
-          reject(response.status);
+          if (response.status === SUCCESS_STATUS) {
+            resolve(response);
+          } else {
+            reject(response.status);
+          }
+        } catch (err) {
+          reject(new Error(`Failed to parse response: ${err}`));
         }
       });
       socket.on("ready", () => {
         const body = {
-          comandId: "commandId",
+          commandId: "commandId",
           deviceId: this.deviceId,
           commandType,
         } as any;

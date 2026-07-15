@@ -1,15 +1,19 @@
-# CONFIDENTIAL
+# Homebridge DLight Plugin
 
-## Build
+This plugin allows you to control DLight devices via Homebridge.
 
-- Install `yarn`: `brew install yarn`
+## Build and Installation
+
+- **Requirement**: Node.js >= 22.0.0, Homebridge >= 2.0.0
 - Install dependencies: `yarn install`
-- Build: `yarn run build`
-- Upgrade dependencies: `yarn upgrade`
+- Build the plugin: `yarn run build`
+- Link for local development: `npm link`
 
 ## Configuration
 
-```
+Add the following to your Homebridge `config.json` under `accessories`:
+
+```json
 {
     "accessory": "DLight",
     "name": "My DLight",

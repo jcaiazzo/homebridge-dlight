@@ -1,0 +1,28 @@
+/**
+ * @license
+ * Copyright 2022-2026 Matter.js Authors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+import { IdentifyServer as BaseIdentifyServer } from "../behaviors/identify/IdentifyServer.js";
+import { MutableEndpoint } from "../endpoint/type/MutableEndpoint.js";
+import { SupportedBehaviors } from "../endpoint/properties/SupportedBehaviors.js";
+var OvenRequirements;
+((OvenRequirements2) => {
+  OvenRequirements2.IdentifyServer = BaseIdentifyServer;
+  OvenRequirements2.server = { optional: { Identify: OvenRequirements2.IdentifyServer }, mandatory: {} };
+})(OvenRequirements || (OvenRequirements = {}));
+const OvenDeviceDefinition = MutableEndpoint({
+  name: "Oven",
+  deviceType: 123,
+  deviceRevision: 2,
+  requirements: OvenRequirements,
+  behaviors: SupportedBehaviors()
+});
+Object.freeze(OvenDeviceDefinition);
+const OvenDevice = OvenDeviceDefinition;
+export {
+  OvenDevice,
+  OvenDeviceDefinition,
+  OvenRequirements
+};
+//# sourceMappingURL=oven.js.map

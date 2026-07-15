@@ -1,0 +1,51 @@
+/**
+ * @license
+ * Copyright 2022-2026 Matter.js Authors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+import {
+  OperationalStateServer as BaseOperationalStateServer
+} from "../behaviors/operational-state/OperationalStateServer.js";
+import { IdentifyServer as BaseIdentifyServer } from "../behaviors/identify/IdentifyServer.js";
+import { OnOffServer as BaseOnOffServer } from "../behaviors/on-off/OnOffServer.js";
+import {
+  TemperatureControlServer as BaseTemperatureControlServer
+} from "../behaviors/temperature-control/TemperatureControlServer.js";
+import { DishwasherModeServer as BaseDishwasherModeServer } from "../behaviors/dishwasher-mode/DishwasherModeServer.js";
+import { DishwasherAlarmServer as BaseDishwasherAlarmServer } from "../behaviors/dishwasher-alarm/DishwasherAlarmServer.js";
+import { MutableEndpoint } from "../endpoint/type/MutableEndpoint.js";
+import { SupportedBehaviors } from "../endpoint/properties/SupportedBehaviors.js";
+var DishwasherRequirements;
+((DishwasherRequirements2) => {
+  DishwasherRequirements2.OperationalStateServer = BaseOperationalStateServer.alter({ events: { operationCompletion: { optional: false } } });
+  DishwasherRequirements2.IdentifyServer = BaseIdentifyServer;
+  DishwasherRequirements2.OnOffServer = BaseOnOffServer.with("DeadFrontBehavior");
+  DishwasherRequirements2.TemperatureControlServer = BaseTemperatureControlServer;
+  DishwasherRequirements2.DishwasherModeServer = BaseDishwasherModeServer;
+  DishwasherRequirements2.DishwasherAlarmServer = BaseDishwasherAlarmServer;
+  DishwasherRequirements2.server = {
+    mandatory: { OperationalState: DishwasherRequirements2.OperationalStateServer },
+    optional: {
+      Identify: DishwasherRequirements2.IdentifyServer,
+      OnOff: DishwasherRequirements2.OnOffServer,
+      TemperatureControl: DishwasherRequirements2.TemperatureControlServer,
+      DishwasherMode: DishwasherRequirements2.DishwasherModeServer,
+      DishwasherAlarm: DishwasherRequirements2.DishwasherAlarmServer
+    }
+  };
+})(DishwasherRequirements || (DishwasherRequirements = {}));
+const DishwasherDeviceDefinition = MutableEndpoint({
+  name: "Dishwasher",
+  deviceType: 117,
+  deviceRevision: 2,
+  requirements: DishwasherRequirements,
+  behaviors: SupportedBehaviors(DishwasherRequirements.server.mandatory.OperationalState)
+});
+Object.freeze(DishwasherDeviceDefinition);
+const DishwasherDevice = DishwasherDeviceDefinition;
+export {
+  DishwasherDevice,
+  DishwasherDeviceDefinition,
+  DishwasherRequirements
+};
+//# sourceMappingURL=dishwasher.js.map

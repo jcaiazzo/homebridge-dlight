@@ -1,0 +1,51 @@
+"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var ContextAgents_exports = {};
+__export(ContextAgents_exports, {
+  ContextAgents: () => ContextAgents
+});
+module.exports = __toCommonJS(ContextAgents_exports);
+/**
+ * @license
+ * Copyright 2022-2026 Matter.js Authors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+const contextAgents = /* @__PURE__ */ new WeakMap();
+function ContextAgents(context) {
+  let instance = contextAgents.get(context);
+  if (instance === void 0) {
+    instance = create(context);
+    contextAgents.set(context, instance);
+  }
+  return instance;
+}
+function create(context) {
+  const agents = /* @__PURE__ */ new Map();
+  return {
+    [Symbol.toStringTag]: "ContextAgents",
+    agentFor(endpoint) {
+      let agent = agents.get(endpoint);
+      if (agent === void 0) {
+        agents.set(endpoint, agent = new endpoint.agentType(endpoint, context));
+      }
+      return agent;
+    }
+  };
+}
+//# sourceMappingURL=ContextAgents.js.map

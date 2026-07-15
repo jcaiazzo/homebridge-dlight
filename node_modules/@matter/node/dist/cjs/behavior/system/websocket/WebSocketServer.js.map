@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../../src/behavior/system/websocket/WebSocketServer.ts"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAMA,0BAA6B;AAC7B,gCAAmC;AAPnC;AAAA;AAAA;AAAA;AAAA;AAYO,MAAM,wBAAwB,iCAAa;AAAA,EAC9C,OAAyB,KAAK;AAAA,EAC9B,OAAyB,gBAAgB;AAC7C;AAAA,CAEO,CAAUA,qBAAV;AAAA,EACI,MAAM,cAAc,iCAAa,MAAM;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,IAWjC,UAAU;AAAA,EACvB;AAZO,EAAAA,iBAAM;AAAA,GADA;",
+  "names": ["WebSocketServer"]
+}

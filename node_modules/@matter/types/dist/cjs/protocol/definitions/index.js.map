@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/protocol/definitions/index.ts"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAAA;AAMA,gCAAc,qBANd;AAOA,gCAAc,yBAPd;AAQA,gCAAc,6BARd;AASA,gCAAc,gCATd;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

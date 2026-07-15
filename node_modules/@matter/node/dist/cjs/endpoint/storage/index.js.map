@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/endpoint/storage/index.ts"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAAA;AAMA,4BAAc,oDANd;AAOA,4BAAc,oDAPd;AAQA,4BAAc,wDARd;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

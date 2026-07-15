@@ -1,0 +1,31 @@
+/**
+ * @license
+ * Copyright 2022-2026 Matter.js Authors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+import { IdentifyServer as BaseIdentifyServer } from "../behaviors/identify/IdentifyServer.js";
+import { ThermostatBehavior as BaseThermostatBehavior } from "../behaviors/thermostat/ThermostatBehavior.js";
+import { MutableEndpoint } from "../endpoint/type/MutableEndpoint.js";
+import { SupportedBehaviors } from "../endpoint/properties/SupportedBehaviors.js";
+var HeatPumpRequirements;
+((HeatPumpRequirements2) => {
+  HeatPumpRequirements2.IdentifyServer = BaseIdentifyServer;
+  HeatPumpRequirements2.ThermostatBehavior = BaseThermostatBehavior;
+  HeatPumpRequirements2.server = { optional: { Identify: HeatPumpRequirements2.IdentifyServer }, mandatory: {} };
+  HeatPumpRequirements2.client = { optional: { Thermostat: HeatPumpRequirements2.ThermostatBehavior }, mandatory: {} };
+})(HeatPumpRequirements || (HeatPumpRequirements = {}));
+const HeatPumpDeviceDefinition = MutableEndpoint({
+  name: "HeatPump",
+  deviceType: 777,
+  deviceRevision: 1,
+  requirements: HeatPumpRequirements,
+  behaviors: SupportedBehaviors()
+});
+Object.freeze(HeatPumpDeviceDefinition);
+const HeatPumpDevice = HeatPumpDeviceDefinition;
+export {
+  HeatPumpDevice,
+  HeatPumpDeviceDefinition,
+  HeatPumpRequirements
+};
+//# sourceMappingURL=heat-pump.js.map

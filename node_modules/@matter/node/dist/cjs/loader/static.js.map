@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../src/loader/static.ts"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAMA,oBAAuB;AANvB;AAAA;AAAA;AAAA;AAAA;AAaO,SAAS,KAAK,MAAkB;AACnC,QAAM,SAAS,KAAK,MAAM,2BAA2B;AAErD,MAAI,QAAQ;AACR,UAAM,CAAC,EAAE,KAAK,IAAI;AAClB,WAAO,qBAAO,SAAS,KAAK,KAAK,CAAC;AAAA,EACtC;AAEA,SAAO,CAAC;AACZ;",
+  "names": []
+}

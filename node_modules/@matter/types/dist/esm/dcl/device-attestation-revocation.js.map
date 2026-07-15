@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../src/dcl/device-attestation-revocation.ts"],
+  "mappings": "AAAA;AAAA;AAAA;AAAA;AAAA;AAQO,IAAK,qBAAL,kBAAKA,wBAAL;AAIH,EAAAA,wCAAA,SAAM,KAAN;AAJQ,SAAAA;AAAA,GAAA;",
+  "names": ["RevocationTypeEnum"]
+}

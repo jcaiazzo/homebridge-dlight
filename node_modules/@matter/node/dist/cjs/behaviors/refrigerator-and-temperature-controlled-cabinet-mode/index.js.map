@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/behaviors/refrigerator-and-temperature-controlled-cabinet-mode/index.ts"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAAA;AAQA,yEAAc,yEARd;AASA,yEAAc,uEATd;AAUA,yEAAc,uEAVd;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

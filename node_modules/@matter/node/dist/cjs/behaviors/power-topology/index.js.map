@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/behaviors/power-topology/index.ts"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAAA;AAQA,mCAAc,uCARd;AASA,mCAAc,qCATd;AAUA,mCAAc,qCAVd;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

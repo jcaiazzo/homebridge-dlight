@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/endpoint/properties/index.ts"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AAAA;AAMA,+BAAc,2BANd;AAOA,+BAAc,0BAPd;AAQA,+BAAc,mCARd;AASA,+BAAc,qCATd;AAUA,+BAAc,mCAVd;AAWA,+BAAc,2BAXd;AAYA,+BAAc,uBAZd;AAaA,+BAAc,oCAbd;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

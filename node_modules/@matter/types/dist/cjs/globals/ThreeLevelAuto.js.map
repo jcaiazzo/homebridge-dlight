@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": ["../../../src/globals/ThreeLevelAuto.ts"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAgBO,IAAK,iBAAL,kBAAKA,oBAAL;AAIH,EAAAA,gCAAA,UAAO,KAAP;AAKA,EAAAA,gCAAA,SAAM,KAAN;AAKA,EAAAA,gCAAA,YAAS,KAAT;AAKA,EAAAA,gCAAA,UAAO,KAAP;AAnBQ,SAAAA;AAAA,GAAA;",
+  "names": ["ThreeLevelAuto"]
+}
