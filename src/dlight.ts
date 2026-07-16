@@ -34,6 +34,29 @@ interface DeviceState {
   colorTemperature: number;
 }
 
+interface MdnsAnswer {
+  name: string;
+  type: string;
+  data: string;
+}
+
+// Define the shape of the JSON responses returned by the dLight API
+interface ApiResponse {
+  status: string;
+  on: boolean;
+  brightness: number;
+  color: {
+    temperature: number;
+  };
+  states: {
+    on: boolean;
+    brightness: number;
+    color: {
+      temperature: number;
+    };
+  };
+}
+
 export default class DLight implements AccessoryPlugin {
   private readonly lightbulbService: Service;
   private readonly deviceId: string;
@@ -130,8 +153,8 @@ export default class DLight implements AccessoryPlugin {
 
       mdnsClient.on("response", (response) => {
         const answer = response.answers.find(
-          (answer: any) =>
-            answer.name === dnsName && answer.type === "A" && answer.data
+          (ans): ans is MdnsAnswer =>
+            ans.name === dnsName && ans.type === "A" && typeof ans.data === "string"
         );
 
         if (answer) {
@@ -191,7 +214,10 @@ export default class DLight implements AccessoryPlugin {
     return this.deviceState;
   }
 
-  private apiCall(commandType: CommandType, commands?: any[]): Promise<any> {
+  private apiCall(
+    commandType: CommandType, 
+    commands?: Record<string, unknown>[]
+  ): Promise<ApiResponse> {
     return new Promise((resolve, reject) => {
       if (!this.ready) return reject(NOT_READY_REASON);
 
@@ -213,7 +239,7 @@ export default class DLight implements AccessoryPlugin {
         socket.end();
 
         try {
-          const response = JSON.parse(buffer.subarray(4).toString());
+          const response = JSON.parse(buffer.subarray(4).toString()) as ApiResponse;
 
           if (response.status === SUCCESS_STATUS) {
             resolve(response);
@@ -225,11 +251,16 @@ export default class DLight implements AccessoryPlugin {
         }
       });
       socket.on("ready", () => {
-        const body = {
+        const body: {
+          commandId: string;
+          deviceId: string;
+          commandType: CommandType;
+          commands?: Record<string, unknown>[];
+        } = {
           commandId: "commandId",
           deviceId: this.deviceId,
           commandType,
-        } as any;
+        };
 
         if (commands) {
           body.commands = commands;
