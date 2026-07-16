@@ -1,6 +1,8 @@
 # Homebridge DLight Plugin
 
-This plugin allows you to control DLight devices via Homebridge. This fork of existing homebridge-dlight was updated for Homebridge 2.0 and node.js >.22
+This plugin allows you to control DLight devices via Homebridge. 
+
+This fork of an existing homebridge-dlight plugin was updated for Homebridge 2.0 and node.js >=22
 
 ## Build and Installation
 
